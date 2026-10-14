@@ -1,0 +1,9 @@
+# VideoJev runtime. Pin transformers to a release that ships Qwen3.5 multimodal.
+torch>=2.4
+torchvision
+transformers>=5.4
+peft>=0.13
+av
+huggingface_hub
+# Optional download sources
+modelscope

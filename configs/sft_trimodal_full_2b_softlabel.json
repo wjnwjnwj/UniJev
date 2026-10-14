@@ -1,0 +1,30 @@
+{
+  "model_path": "models/Qwen3.5-2B",
+  "data": "data/trimodal_full_train.jsonl",
+  "output": "output/sft_trimodal_full_2b_softlabel",
+  "stage": "joint",
+  "device": "cuda",
+  "dtype": "bf16",
+  "seed": 42,
+  "epochs": 1,
+  "max_length": 32768,
+  "tokens_per_step": 32768,
+  "gradient_checkpointing": true,
+  "projection_dim": 256,
+  "lora_rank": 32,
+  "lora_alpha": 64,
+  "lora_lr": 5e-05,
+  "merger_lr": 1e-05,
+  "head_lr": 0.0002,
+  "brier_weight": 0.0,
+  "grad_clip": 1.0,
+  "save_every": 50,
+  "eval_data": "data/trimodal_quick_val.jsonl",
+  "final_eval_data": "data/trimodal_full_val.jsonl",
+  "media_kwargs": {
+    "max_frames": 128,
+    "min_pixels": 3136,
+    "max_pixels": 65536
+  },
+  "soft_label_prob": 0.9
+}
