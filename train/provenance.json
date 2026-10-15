@@ -1,0 +1,58 @@
+{
+  "scope": "CORA trimodal 2B and 9B training and their soft-label SFT initializations",
+  "runs": {
+    "2b": {
+      "cora_run": "save-ckpt/experiments/campaign_20261010_v1/runs/cora_trimodal_2b",
+      "sft_checkpoint": "save-ckpt/sft/sft_2b_soft/step-01150",
+      "sft_checkpoint_sha256": "7b783310d733fa5da471f6dbec4f4e1fdd532a0821eacbf8bd2772b0cf40ceca",
+      "sft_entrypoint": "videojev_soft_label.train",
+      "sft_world_size": 8,
+      "cora_objective_at_launch_sha256": "2d0d52b8e04d8a9ccacefb2d993bb112b19aa73a005e50bf579792bbac2c3aa7",
+      "historical_objective_git_commit": "0342fd8",
+      "nonfinite_gradient_behavior": "raise",
+      "source_evidence": "SFT checkpoint config and run_manifest plus retained implementation; no original SFT source snapshot"
+    },
+    "9b": {
+      "cora_run": "save-ckpt/experiments/campaign_20261010_v1/runs/cora_trimodal_9b",
+      "sft_checkpoint": "save-ckpt/experiments/campaign_20261010_v1/runs/sft_softlabel_9b/step-00500",
+      "sft_checkpoint_sha256": "ed3973f0319b6d550756c13d0f83c35dd81ce75bf050358a022d1c46d84d8eee",
+      "sft_entrypoint": "campaign_coexist_v2.train -> campaign_train_v1.train (sft_soft only)",
+      "sft_world_size": 4,
+      "sft_activation_cpu_offload": true,
+      "cora_objective_at_launch_sha256": "fee9e18cfe5c328ebaa17caf77bf65bd21018ef062144aff09667a1bfe2f35e2",
+      "nonfinite_gradient_behavior": "skip_update",
+      "source_evidence": "SFT physical source snapshot matches retained implementation; CORA run source hashes match"
+    }
+  },
+  "source_sha256_relative_to_video_scripts": {
+    "cora_train_v1/train.py": "24ad9d7d31fe67d690b0961f38311d0f1fa9dd63c97a20ecf29ad7392ee5e184",
+    "cora_train_v1/data.py": "27b00298d9bccb68353b3c02128af3efb7d026d858efa792d6bcb457da7c02e5",
+    "cora_train_v1/targets.py": "18e6e54f45da682919960db45341a9e9cb9cc14a334b7d6cd41412d581d30d16",
+    "cora_train_v1/objective.py": "fee9e18cfe5c328ebaa17caf77bf65bd21018ef062144aff09667a1bfe2f35e2",
+    "campaign_train_v2/base_model.py": "6535a642b4f58fcf5368d84066804ae35c6526ad7cd36551ad11b3de65b3796b",
+    "campaign_train_v2/compiler.py": "6f90dbfb4a38b949b451e284bd780893ffd7dc14bd62d13f60690739f28a168f",
+    "campaign_train_v2/schema.py": "afb3207f2e01d54a093320598ed0f922dc2bb296a9f998d60d6e55a639b8cb5d",
+    "campaign_train_v2/modeling.py": "0668011c1b3a24188377ecb3d23c20de1d23e0c2832371639c94a7ad1d9d30d1",
+    "campaign_train_v2/runtime.py": "c2814cae308f6771bb5705f908acce0f76fd57d4a8cabe5c9080f44dae06fa0b",
+    "campaign_train_v1/train.py": "5f54359d12552f36e11ef53b6597b157d8b761d0931acd23d91403be33a3746c",
+    "videojev-soft-label/train.py": "8329376f9f25780d3c806413ee1359820dd7f44de8d93f2a1af3c299aad5c4f0",
+    "videojev-soft-label/modeling.py": "aa06ca30893e71cee9839c07efbdbf47fcec51187a676c8809829b2050912c95"
+  },
+  "preserved": [
+    "Qwen3.5 conditional-generation loader then backbone extraction",
+    "FP32 bilinear head, projection dimension 256",
+    "language Linear LoRA targets and visual merger trainable scope",
+    "exact input compiler and schema",
+    "separate SFT data order, token budgets, gradient reductions, optimizer settings and attention backends",
+    "current mixed-modality output groups, detached bin accuracy targets and recomputed confidence gradients",
+    "source-group holdout hash and internal best-checkpoint selection"
+  ],
+  "packaging_changes": [
+    "portable external paths and four launchers",
+    "shared model without a fixed temperature=1 wrapper",
+    "training-only configuration without test/development files or release dependencies",
+    "delta checkpoint format with optimizer/sampler continuation",
+    "no hardware sharing scheduler; retain 9B SFT activation CPU offload",
+    "explicit single-step example smoke mode"
+  ]
+}

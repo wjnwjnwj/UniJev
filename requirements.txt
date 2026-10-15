@@ -1,9 +1,13 @@
-# VideoJev runtime. Pin transformers to a release that ships Qwen3.5 multimodal.
-torch>=2.4
-torchvision
-transformers>=5.4
-peft>=0.13
-av
-huggingface_hub
-# Optional download sources
-modelscope
+# Python 3.10; install the CUDA 12.4 PyTorch wheels as described in readme.md.
+# Versions observed in the source training environment.
+torch==2.6.0
+torchvision==0.21.0
+transformers==5.4.0
+peft==0.18.1
+accelerate==1.15.0
+numpy==2.2.6
+Pillow==12.3.0
+av==16.1.0
+huggingface-hub==1.7.1
+safetensors==0.8.0
+tokenizers==0.22.2

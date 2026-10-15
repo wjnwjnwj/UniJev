@@ -1,0 +1,322 @@
+{
+  "source_dataset": "trimodal_full_train.jsonl",
+  "source_dataset_sha256": "0d945f2121d4b0f92f45ab8d52049f89a7c7a2a171d020e658c6dc6dc97950ba",
+  "records_by_modality": {
+    "image": 10,
+    "text": 10,
+    "video": 10
+  },
+  "selection": "10 original training records per modality; one source group per modality retains the original internal holdout assignment; small assets prioritized; text spans 10 domains",
+  "examples": [
+    {
+      "example_id": "image_01",
+      "source_record_index": 2496,
+      "source_group_id": "image:672f2a1fd80b86a7b7e533baa5df39b99836f31bff99bb181eb9953991d5ee85",
+      "cora_internal_split": "train",
+      "source_media": "442-672f2a1fd80b.jpg",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "672f2a1fd80b86a7b7e533baa5df39b99836f31bff99bb181eb9953991d5ee85",
+      "media_path": "media/image/image_01.jpg",
+      "media_sha256": "672f2a1fd80b86a7b7e533baa5df39b99836f31bff99bb181eb9953991d5ee85",
+      "media_bytes": 4806
+    },
+    {
+      "example_id": "image_02",
+      "source_record_index": 2542,
+      "source_group_id": "image:2fb8427368c49b79377949a47d0d40388e8fc1bc58947a9fff39fc6d6f9b77e5",
+      "cora_internal_split": "train",
+      "source_media": "510-2fb8427368c4.png",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "2fb8427368c49b79377949a47d0d40388e8fc1bc58947a9fff39fc6d6f9b77e5",
+      "media_path": "media/image/image_02.png",
+      "media_sha256": "2fb8427368c49b79377949a47d0d40388e8fc1bc58947a9fff39fc6d6f9b77e5",
+      "media_bytes": 16457
+    },
+    {
+      "example_id": "text_01",
+      "source_record_index": 5516,
+      "source_group_id": "agnews/train/75683",
+      "cora_internal_split": "train"
+    },
+    {
+      "example_id": "image_03",
+      "source_record_index": 6433,
+      "source_group_id": "image:6294cb3eb8f1da24439c87acbc325368e5da302c42696629eeeeaba9317de2d6",
+      "cora_internal_split": "train",
+      "source_media": "hjxw0228_1.png-6294cb3eb8f1.png",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "6294cb3eb8f1da24439c87acbc325368e5da302c42696629eeeeaba9317de2d6",
+      "media_path": "media/image/image_03.png",
+      "media_sha256": "6294cb3eb8f1da24439c87acbc325368e5da302c42696629eeeeaba9317de2d6",
+      "media_bytes": 8459
+    },
+    {
+      "example_id": "video_01",
+      "source_record_index": 9016,
+      "source_group_id": "video_02868",
+      "cora_internal_split": "validation",
+      "source_media": "video_02868.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "10ea2630bbea409e024929cbfa425de57ba41e6754691352a39f27cc6e2c07db",
+      "media_path": "media/video/video_01.tar",
+      "media_sha256": "aa41ddde5f4046263605e43e5e92e0f5eb857a65165211d1c107a05b5bea9bed",
+      "media_bytes": 122880
+    },
+    {
+      "example_id": "image_04",
+      "source_record_index": 10371,
+      "source_group_id": "image:35ff96d02f777e20d266d3c5e6fa640048e80fb924635ff2212257600edf0bc6",
+      "cora_internal_split": "train",
+      "source_media": "screenshots_clock_screen_2.png-35ff96d02f77.png",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "35ff96d02f777e20d266d3c5e6fa640048e80fb924635ff2212257600edf0bc6",
+      "media_path": "media/image/image_04.png",
+      "media_sha256": "35ff96d02f777e20d266d3c5e6fa640048e80fb924635ff2212257600edf0bc6",
+      "media_bytes": 84113
+    },
+    {
+      "example_id": "video_02",
+      "source_record_index": 10791,
+      "source_group_id": "video_06511",
+      "cora_internal_split": "train",
+      "source_media": "video_06511.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "377bfdd59fd00b7185d3ddcbd3c1954ad359241cbb8f89e63ef8182f4d54ab8c",
+      "media_path": "media/video/video_02.tar",
+      "media_sha256": "109a2ab77ccd6adc9c9457c83cb4ee3d357e80c3f87ab8112cea75870c56b05d",
+      "media_bytes": 112640
+    },
+    {
+      "example_id": "text_02",
+      "source_record_index": 11516,
+      "source_group_id": "banking77/train/4074",
+      "cora_internal_split": "train"
+    },
+    {
+      "example_id": "video_03",
+      "source_record_index": 13119,
+      "source_group_id": "video_01347",
+      "cora_internal_split": "train",
+      "source_media": "video_01347.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "4855eb8806a7b4d3093b6a61d7a4f893530ba2bcb471848024d865878cb52366",
+      "media_path": "media/video/video_03.tar",
+      "media_sha256": "770c6dccc525243ef97118d428273a17294d03965341c6e81996e5688f9d7946",
+      "media_bytes": 112640
+    },
+    {
+      "example_id": "video_04",
+      "source_record_index": 16477,
+      "source_group_id": "video_07848",
+      "cora_internal_split": "train",
+      "source_media": "video_07848.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "c408a2e5fa1a0291e5cf97f72c660b81cd0040dc6f5abdb414ef55324b5f52e8",
+      "media_path": "media/video/video_04.tar",
+      "media_sha256": "e51a397a55f6898aaf409bcb81479be8f4f6b2180ce7bcdb1b952cf6d28f971c",
+      "media_bytes": 112640
+    },
+    {
+      "example_id": "video_05",
+      "source_record_index": 17912,
+      "source_group_id": "video_07286",
+      "cora_internal_split": "train",
+      "source_media": "video_07286.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "1928cedf422f95c139ffbeaafd415ea062eeb40867546cf382dbd655e9750344",
+      "media_path": "media/video/video_05.tar",
+      "media_sha256": "afb021372bc93d4cd71f9140e6ae022f5a8578fbdc48acc4a97d2b81164cd7ec",
+      "media_bytes": 112640
+    },
+    {
+      "example_id": "video_06",
+      "source_record_index": 18703,
+      "source_group_id": "video_07563",
+      "cora_internal_split": "train",
+      "source_media": "video_07563.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "dc14871a09d77bf99cc13e6f056e4304b92d0ac0ad7983e4fb1933fb924bc1f8",
+      "media_path": "media/video/video_06.tar",
+      "media_sha256": "b24624cc2d8a86d67482c376bd74251a5723e302260386467b60d1b7ba6bf7b2",
+      "media_bytes": 112640
+    },
+    {
+      "example_id": "image_05",
+      "source_record_index": 21110,
+      "source_group_id": "image:4d3d1f62c0806b1adc691135b1f1187a44a58f43e06cd42e830c617fb54e37de",
+      "cora_internal_split": "train",
+      "source_media": "0a6c78d0ab7744f7-4d3d1f62c080.jpg",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "4d3d1f62c0806b1adc691135b1f1187a44a58f43e06cd42e830c617fb54e37de",
+      "media_path": "media/image/image_05.jpg",
+      "media_sha256": "4d3d1f62c0806b1adc691135b1f1187a44a58f43e06cd42e830c617fb54e37de",
+      "media_bytes": 21341
+    },
+    {
+      "example_id": "video_07",
+      "source_record_index": 22021,
+      "source_group_id": "video_09575",
+      "cora_internal_split": "train",
+      "source_media": "video_09575.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "1f22d818022077449f8ccdc40deced1958044af29876839ef99a28a660f06159",
+      "media_path": "media/video/video_07.tar",
+      "media_sha256": "3fc1065b7def07ff8258d3e35bf9cd5df832af88e8022efaaa73f4a69c8c2334",
+      "media_bytes": 112640
+    },
+    {
+      "example_id": "video_08",
+      "source_record_index": 25362,
+      "source_group_id": "video_05097",
+      "cora_internal_split": "train",
+      "source_media": "video_05097.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "4faa727b03b0bee4b8f146002b5b2d33fe044b8fcf825bc305d1cee85346cd2c",
+      "media_path": "media/video/video_08.tar",
+      "media_sha256": "9897a4edd010d111c862597455da589162a536cadd7dafcb17d340b7c8983613",
+      "media_bytes": 112640
+    },
+    {
+      "example_id": "image_06",
+      "source_record_index": 26754,
+      "source_group_id": "image:3e4253c12fe4c1ab9638716e12a30c43df70088ceab0a233fece1ae15bb47f3b",
+      "cora_internal_split": "train",
+      "source_media": "27874-3e4253c12fe4.jpg",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "3e4253c12fe4c1ab9638716e12a30c43df70088ceab0a233fece1ae15bb47f3b",
+      "media_path": "media/image/image_06.jpg",
+      "media_sha256": "3e4253c12fe4c1ab9638716e12a30c43df70088ceab0a233fece1ae15bb47f3b",
+      "media_bytes": 16049
+    },
+    {
+      "example_id": "image_07",
+      "source_record_index": 27128,
+      "source_group_id": "image:c3dc37177002169669ea8d57e2b6c1aaf57c478c5045f39f0847632fbe0eaf42",
+      "cora_internal_split": "train",
+      "source_media": "265207-c3dc37177002.jpg",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "c3dc37177002169669ea8d57e2b6c1aaf57c478c5045f39f0847632fbe0eaf42",
+      "media_path": "media/image/image_07.jpg",
+      "media_sha256": "c3dc37177002169669ea8d57e2b6c1aaf57c478c5045f39f0847632fbe0eaf42",
+      "media_bytes": 8487
+    },
+    {
+      "example_id": "image_08",
+      "source_record_index": 35750,
+      "source_group_id": "image:8f9214580fb73c9bfe6b31026f52a780027ae0c88ae60eb4d788be907bf143ab",
+      "cora_internal_split": "train",
+      "source_media": "games_images_star_battle_board_state_analysis_Easy_213.png-8f9214580fb7.png",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "8f9214580fb73c9bfe6b31026f52a780027ae0c88ae60eb4d788be907bf143ab",
+      "media_path": "media/image/image_08.png",
+      "media_sha256": "8f9214580fb73c9bfe6b31026f52a780027ae0c88ae60eb4d788be907bf143ab",
+      "media_bytes": 1105
+    },
+    {
+      "example_id": "text_03",
+      "source_record_index": 41001,
+      "source_group_id": "mnli/train/114605",
+      "cora_internal_split": "validation"
+    },
+    {
+      "example_id": "video_09",
+      "source_record_index": 45136,
+      "source_group_id": "video_02138",
+      "cora_internal_split": "train",
+      "source_media": "video_02138.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "3694a5cc5c50493b6332778ce4f79d13b96daf0f6fd6ba1720967767a3cc0478",
+      "media_path": "media/video/video_09.tar",
+      "media_sha256": "69a70436b6492eb3e7d6d4d2edd4d92744b857a2d88916a43efceddb2fd4ad04",
+      "media_bytes": 112640
+    },
+    {
+      "example_id": "text_04",
+      "source_record_index": 48874,
+      "source_group_id": "dbpedia14/train/481848",
+      "cora_internal_split": "train"
+    },
+    {
+      "example_id": "text_05",
+      "source_record_index": 52185,
+      "source_group_id": "yelp/train/320496",
+      "cora_internal_split": "train"
+    },
+    {
+      "example_id": "video_10",
+      "source_record_index": 54245,
+      "source_group_id": "video_01586",
+      "cora_internal_split": "train",
+      "source_media": "video_01586.mp4",
+      "frames": 10,
+      "media_transform": "JPEG bytes and sampling metadata unchanged; source path replaced with basename; tar headers normalized",
+      "source_media_sha256": "8d21c0f99d4259fc4f24c60692b640c59d003ef554918570c33de0498960373a",
+      "media_path": "media/video/video_10.tar",
+      "media_sha256": "8d422daf60c1c1a6f826d3d27a9c29768c5a33892ac08cef6ea1c377d88b9415",
+      "media_bytes": 112640
+    },
+    {
+      "example_id": "text_06",
+      "source_record_index": 57744,
+      "source_group_id": "amazon/train/7422",
+      "cora_internal_split": "train"
+    },
+    {
+      "example_id": "text_07",
+      "source_record_index": 74257,
+      "source_group_id": "sst5/train/2964",
+      "cora_internal_split": "train"
+    },
+    {
+      "example_id": "image_09",
+      "source_record_index": 80576,
+      "source_group_id": "image:984eb3d443a24508a5c75269c3c113b1a1080326d947c41e6f3b1c67be14fcbe",
+      "cora_internal_split": "validation",
+      "source_media": "4918-984eb3d443a2.jpg",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "984eb3d443a24508a5c75269c3c113b1a1080326d947c41e6f3b1c67be14fcbe",
+      "media_path": "media/image/image_09.jpg",
+      "media_sha256": "984eb3d443a24508a5c75269c3c113b1a1080326d947c41e6f3b1c67be14fcbe",
+      "media_bytes": 61682
+    },
+    {
+      "example_id": "text_08",
+      "source_record_index": 135421,
+      "source_group_id": "boolq/train/6593",
+      "cora_internal_split": "train"
+    },
+    {
+      "example_id": "text_09",
+      "source_record_index": 144185,
+      "source_group_id": "trec/train/1427",
+      "cora_internal_split": "train"
+    },
+    {
+      "example_id": "text_10",
+      "source_record_index": 144899,
+      "source_group_id": "imdb/train/1415",
+      "cora_internal_split": "train"
+    },
+    {
+      "example_id": "image_10",
+      "source_record_index": 152107,
+      "source_group_id": "image:aab69d34620eed5ba5be629100773996234339d8a6cad8a25c4c280af6d0a55e",
+      "cora_internal_split": "train",
+      "source_media": "aab69d34620eed5ba5be629100773996234339d8a6cad8a25c4c280af6d0a55e-aab69d34620e.png",
+      "media_transform": "byte-for-byte image copy",
+      "source_media_sha256": "aab69d34620eed5ba5be629100773996234339d8a6cad8a25c4c280af6d0a55e",
+      "media_path": "media/image/image_10.png",
+      "media_sha256": "aab69d34620eed5ba5be629100773996234339d8a6cad8a25c4c280af6d0a55e",
+      "media_bytes": 8005
+    }
+  ]
+}
