@@ -2,7 +2,7 @@
 
 **Confidence calibration for decisions across text, images, and video.**
 
-[🤗 Model Weights](https://huggingface.co/wjnwjnwj/UniJev) · [Results](#results) · [Case Gallery](#case-gallery) · [Quick Start](#quick-start) · [Training](#training) · [Data](#data)
+[🌐 Live Demo](https://unijev-website.3323422990.workers.dev/) · [🤗 Model Weights](https://huggingface.co/wjnwjnwj/UniJev) · [Results](#results) · [Case Gallery](#case-gallery) · [Quick Start](#quick-start) · [Training](#training) · [Data](#data)
 
 CORA trains multimodal decision models to express confidence that reflects how often they are correct. Given text, an image, or a video and a set of candidate answers, the model scores the candidates directly and returns an explicit probability distribution. This gives applications a decision and a confidence score to use for routing, filtering, or requesting human review.
 
@@ -278,4 +278,10 @@ train/
   configs/             # 2B and 9B training recipes
   run_*.sh             # Launch scripts for both stages
 requirements.txt       # Python dependencies
+```
+
+## Cite us
+
+```bib
+
 ```
