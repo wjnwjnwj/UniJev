@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,12 +26,18 @@ def parser(description):
     result.add_argument("--check-data", action="store_true", help="Validate labels and assets without loading weights")
     result.add_argument("--smoke", action="store_true", help="One update on the bundled examples; not the full recipe")
     result.add_argument("--resume", action="store_true")
+    result.add_argument("--strict-determinism", action="store_true",
+                        help="Use deterministic PyTorch kernels for numerical comparisons; changes the original kernel execution mode")
     return result
 
 
 def load_config(args, stage):
     path = Path(args.config).resolve()
     config = json.loads(path.read_text())
+    if args.strict_determinism:
+        config["strict_determinism"] = True
+    if type(config.get("strict_determinism", False)) is not bool:
+        raise ValueError("strict_determinism must be a boolean")
     if config["stage"] != stage:
         raise ValueError(f"Expected a {stage} recipe")
     if config["model_size"] not in {"2b", "9b"}:
@@ -85,3 +92,14 @@ def load_config(args, stage):
         if type(config[budget]) is not int or config[budget] < 1:
             raise ValueError("Invalid token budget")
     return config
+
+
+def configure_determinism(config):
+    """Configure before Context initializes CUDA; defaults preserve the source recipe."""
+    if not config.get("strict_determinism", False):
+        return
+    workspace = os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+    if workspace not in {":4096:8", ":16:8"}:
+        raise ValueError("Strict determinism requires CUBLAS_WORKSPACE_CONFIG=:4096:8 or :16:8")
+    import torch
+    torch.use_deterministic_algorithms(True)

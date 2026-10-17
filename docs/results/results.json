@@ -1,0 +1,394 @@
+{
+  "description": "Reported rounded values from the latest manuscript; no new inference.",
+  "paper_title": "UniJev: Separating Accuracy from Calibration in Trimodal System One Decision Models",
+  "sources": [
+    {
+      "path": "newpaper/tables/main_results_position.tex",
+      "sha256": "61c269779ed4344526c5aa196713201a7a09280c9692f7d382330b7df96452e6"
+    },
+    {
+      "path": "newpaper/tables/cora_ablation_results.tex",
+      "sha256": "e5588c87649cf21d0a70a4097303d29b1485391dc8ef1797123207dca46754f2"
+    },
+    {
+      "path": "newpaper/sections/4.experiments.tex",
+      "sha256": "feb645406675bebeeab12e0fc48300895c9765ff4c253eacd1a17484b3b9509d"
+    }
+  ],
+  "evaluation": {
+    "questions": {
+      "text": 764,
+      "image": 1858,
+      "video": 502
+    },
+    "ece_bins": 15,
+    "ece_binning": "equal-width",
+    "accuracy_unit": "percent"
+  },
+  "training": {
+    "cora_updates": 100,
+    "local_rlcd_step_budget": 500,
+    "ablation_updates": 100,
+    "default_cora": {
+      "bins": 10,
+      "group_questions": 256,
+      "minimum_bin_support": 20
+    }
+  },
+  "methods": [
+    {
+      "id": "sft_softlabel_2b",
+      "name": "Soft-label SFT (2B)",
+      "parameters_billion": 2,
+      "metrics": {
+        "text": {
+          "accuracy_pct": 72.0,
+          "confidence": 0.737,
+          "ece": 0.057,
+          "nll": 0.693,
+          "brier": 0.387
+        },
+        "image": {
+          "accuracy_pct": 83.3,
+          "confidence": 0.779,
+          "ece": 0.06,
+          "nll": 0.482,
+          "brier": 0.218
+        },
+        "video": {
+          "accuracy_pct": 74.7,
+          "confidence": 0.681,
+          "ece": 0.077,
+          "nll": 0.648,
+          "brier": 0.344
+        }
+      }
+    },
+    {
+      "id": "cora_trained_2b",
+      "name": "CORA (2B)",
+      "parameters_billion": 2,
+      "metrics": {
+        "text": {
+          "accuracy_pct": 71.9,
+          "confidence": 0.767,
+          "ece": 0.055,
+          "nll": 0.643,
+          "brier": 0.4
+        },
+        "image": {
+          "accuracy_pct": 83.6,
+          "confidence": 0.851,
+          "ece": 0.03,
+          "nll": 0.449,
+          "brier": 0.216
+        },
+        "video": {
+          "accuracy_pct": 74.5,
+          "confidence": 0.767,
+          "ece": 0.052,
+          "nll": 0.62,
+          "brier": 0.342
+        }
+      }
+    },
+    {
+      "id": "sft_softlabel_9b",
+      "name": "Soft-label SFT (9B)",
+      "parameters_billion": 9,
+      "metrics": {
+        "text": {
+          "accuracy_pct": 80.8,
+          "confidence": 0.795,
+          "ece": 0.04,
+          "nll": 0.542,
+          "brier": 0.289
+        },
+        "image": {
+          "accuracy_pct": 82.8,
+          "confidence": 0.77,
+          "ece": 0.061,
+          "nll": 0.495,
+          "brier": 0.225
+        },
+        "video": {
+          "accuracy_pct": 77.5,
+          "confidence": 0.702,
+          "ece": 0.077,
+          "nll": 0.602,
+          "brier": 0.316
+        }
+      }
+    },
+    {
+      "id": "cora_trained_9b",
+      "name": "CORA (9B)",
+      "parameters_billion": 9,
+      "metrics": {
+        "text": {
+          "accuracy_pct": 81.0,
+          "confidence": 0.836,
+          "ece": 0.048,
+          "nll": 0.541,
+          "brier": 0.288
+        },
+        "image": {
+          "accuracy_pct": 82.6,
+          "confidence": 0.807,
+          "ece": 0.031,
+          "nll": 0.468,
+          "brier": 0.22
+        },
+        "video": {
+          "accuracy_pct": 77.5,
+          "confidence": 0.736,
+          "ece": 0.063,
+          "nll": 0.579,
+          "brier": 0.31
+        }
+      }
+    },
+    {
+      "id": "shaped_rlcd_2b",
+      "name": "Shaped RLCD",
+      "parameters_billion": 2,
+      "metrics": {
+        "text": {
+          "accuracy_pct": 72.4,
+          "confidence": 0.94,
+          "ece": 0.22,
+          "nll": 1.641,
+          "brier": 0.475
+        },
+        "image": {
+          "accuracy_pct": 84.2,
+          "confidence": 0.941,
+          "ece": 0.099,
+          "nll": 0.748,
+          "brier": 0.25
+        },
+        "video": {
+          "accuracy_pct": 74.1,
+          "confidence": 0.914,
+          "ece": 0.173,
+          "nll": 1.048,
+          "brier": 0.409
+        }
+      }
+    },
+    {
+      "id": "grpo_2b",
+      "name": "GRPO",
+      "parameters_billion": 2,
+      "metrics": {
+        "text": {
+          "accuracy_pct": 72.5,
+          "confidence": 0.959,
+          "ece": 0.234,
+          "nll": 2.228,
+          "brier": 0.492
+        },
+        "image": {
+          "accuracy_pct": 83.8,
+          "confidence": 0.952,
+          "ece": 0.114,
+          "nll": 0.958,
+          "brier": 0.266
+        },
+        "video": {
+          "accuracy_pct": 75.1,
+          "confidence": 0.934,
+          "ece": 0.183,
+          "nll": 1.345,
+          "brier": 0.423
+        }
+      }
+    },
+    {
+      "id": "ctr_2b",
+      "name": "CtR (OpenJev-RLCD)",
+      "parameters_billion": 2,
+      "metrics": {
+        "text": {
+          "accuracy_pct": 71.9,
+          "confidence": 0.813,
+          "ece": 0.095,
+          "nll": 0.761,
+          "brier": 0.394
+        },
+        "image": {
+          "accuracy_pct": 84.0,
+          "confidence": 0.859,
+          "ece": 0.025,
+          "nll": 0.426,
+          "brier": 0.207
+        },
+        "video": {
+          "accuracy_pct": 74.9,
+          "confidence": 0.795,
+          "ece": 0.054,
+          "nll": 0.607,
+          "brier": 0.335
+        }
+      }
+    },
+    {
+      "id": "rlcd_lite_2b",
+      "name": "RLCD-lite",
+      "parameters_billion": 2,
+      "metrics": {
+        "text": {
+          "accuracy_pct": 72.8,
+          "confidence": 0.976,
+          "ece": 0.25,
+          "nll": 3.649,
+          "brier": 0.513
+        },
+        "image": {
+          "accuracy_pct": 83.6,
+          "confidence": 0.979,
+          "ece": 0.143,
+          "nll": 2.056,
+          "brier": 0.302
+        },
+        "video": {
+          "accuracy_pct": 75.1,
+          "confidence": 0.97,
+          "ece": 0.22,
+          "nll": 2.586,
+          "brier": 0.462
+        }
+      }
+    },
+    {
+      "id": "rewarding_doubt_2b",
+      "name": "Rewarding Doubt",
+      "parameters_billion": 2,
+      "metrics": {
+        "text": {
+          "accuracy_pct": 71.1,
+          "confidence": 0.94,
+          "ece": 0.23,
+          "nll": 2.088,
+          "brier": 0.496
+        },
+        "image": {
+          "accuracy_pct": 83.9,
+          "confidence": 0.946,
+          "ece": 0.107,
+          "nll": 0.937,
+          "brier": 0.264
+        },
+        "video": {
+          "accuracy_pct": 73.3,
+          "confidence": 0.909,
+          "ece": 0.178,
+          "nll": 1.195,
+          "brier": 0.421
+        }
+      }
+    }
+  ],
+  "ablations": [
+    {
+      "name": "CORA (default)",
+      "metrics": {
+        "text": {
+          "accuracy_pct": 71.9,
+          "confidence": 0.767,
+          "ece": 0.055
+        },
+        "image": {
+          "accuracy_pct": 83.6,
+          "confidence": 0.851,
+          "ece": 0.03
+        },
+        "video": {
+          "accuracy_pct": 74.5,
+          "confidence": 0.767,
+          "ece": 0.052
+        }
+      }
+    },
+    {
+      "name": "Replace bin accuracy with bin mean confidence",
+      "metrics": {
+        "text": {
+          "accuracy_pct": 71.9,
+          "confidence": 0.989,
+          "ece": 0.274
+        },
+        "image": {
+          "accuracy_pct": 83.0,
+          "confidence": 0.992,
+          "ece": 0.162
+        },
+        "video": {
+          "accuracy_pct": 74.7,
+          "confidence": 0.986,
+          "ece": 0.24
+        }
+      }
+    },
+    {
+      "name": "Replace confidence bins with one global target",
+      "metrics": {
+        "text": {
+          "accuracy_pct": 72.1,
+          "confidence": 0.875,
+          "ece": 0.158
+        },
+        "image": {
+          "accuracy_pct": 82.7,
+          "confidence": 0.83,
+          "ece": 0.127
+        },
+        "video": {
+          "accuracy_pct": 74.5,
+          "confidence": 0.823,
+          "ece": 0.09
+        }
+      }
+    },
+    {
+      "name": "Update the decision head only",
+      "metrics": {
+        "text": {
+          "accuracy_pct": 72.0,
+          "confidence": 0.802,
+          "ece": 0.083
+        },
+        "image": {
+          "accuracy_pct": 83.5,
+          "confidence": 0.848,
+          "ece": 0.032
+        },
+        "video": {
+          "accuracy_pct": 74.9,
+          "confidence": 0.761,
+          "ece": 0.061
+        }
+      }
+    },
+    {
+      "name": "Reduce minimum bin support from 20 to 1",
+      "metrics": {
+        "text": {
+          "accuracy_pct": 72.3,
+          "confidence": 0.802,
+          "ece": 0.095
+        },
+        "image": {
+          "accuracy_pct": 83.6,
+          "confidence": 0.844,
+          "ece": 0.026
+        },
+        "video": {
+          "accuracy_pct": 75.3,
+          "confidence": 0.763,
+          "ece": 0.045
+        }
+      }
+    }
+  ]
+}

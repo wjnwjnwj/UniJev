@@ -1,0 +1,284 @@
+{
+  "source": "newpaper/figures/appendix_data.json",
+  "source_sha256": "6d63b1abe75f39f6511dfa2cd6a33e089b700271584ad2d68145fac00a6ab9da",
+  "model_scale": "2B",
+  "models": {
+    "SFT": "Soft-label SFT initialization",
+    "CORA": "100 supervised calibration updates"
+  },
+  "video_transform": "Six original sampled frames with timestamp captions, source intervals rounded to 10 ms; final frame held for 1 s; no audio or interpolated motion.",
+  "assets": [
+    {
+      "file": "image-counting.jpg",
+      "bytes": 144077,
+      "sha256": "a27c2d0c85eeeaa756626f6cf4630b3ded1b42eedc0fc5aa2e6bf00dd41099a0"
+    },
+    {
+      "file": "image-chart-error.png",
+      "bytes": 29584,
+      "sha256": "942e9723d01999515eb068d5d318653e6fc198350f01f3a43678b0f50792540e"
+    },
+    {
+      "file": "video-scene.gif",
+      "bytes": 645340,
+      "sha256": "d3ef9baa6e09e6e6961919867cc2595e99507157d45e4dfaf14f0165f24181f2"
+    },
+    {
+      "file": "video-scene.mp4",
+      "bytes": 242959,
+      "sha256": "eef2267ed1be23190244148747c47aef56714443ed52378e6d2a38ca856b324f"
+    }
+  ],
+  "cases": [
+    {
+      "id": "text_correct",
+      "paper_case_id": "T1",
+      "record_id": "sciq/test/178",
+      "modality": "text",
+      "evaluation_split": "text_test764",
+      "source_dataset": "allenai/sciq",
+      "upstream_source_split": "test",
+      "upstream_terms": "See upstream dataset terms",
+      "question_id": "answer",
+      "context": "question: What is the term for the force that brings objects toward the earth?",
+      "question": "Which option answers the science question?",
+      "candidates": {
+        "a": "centrifugal",
+        "b": "light",
+        "c": "weight",
+        "d": "gravity"
+      },
+      "target_probabilities": {
+        "a": 0.0,
+        "b": 0.0,
+        "c": 0.0,
+        "d": 1.0
+      },
+      "predictions": {
+        "SFT": {
+          "selected_answer": "d",
+          "candidate_probabilities": {
+            "a": 0.01401108130812645,
+            "b": 0.0078290905803442,
+            "c": 0.22984522581100464,
+            "d": 0.7483145594596863
+          },
+          "accuracy": 1.0,
+          "confidence": 0.7483145594596863
+        },
+        "CORA": {
+          "selected_answer": "d",
+          "candidate_probabilities": {
+            "a": 0.001968762371689081,
+            "b": 0.0008329139673151076,
+            "c": 0.14789502322673798,
+            "d": 0.8493033051490784
+          },
+          "accuracy": 1.0,
+          "confidence": 0.8493033051490784
+        }
+      },
+      "media": []
+    },
+    {
+      "id": "image_correct",
+      "paper_case_id": "I3",
+      "record_id": "vqav2:132654000",
+      "modality": "image",
+      "evaluation_split": "main3124",
+      "source_dataset": "Multimodal-Fatima/VQAv2_train",
+      "upstream_source_split": "train",
+      "upstream_terms": "upstream_VQAv2_terms",
+      "question_id": "decision",
+      "context": "",
+      "question": "How many bowls does the cat have?",
+      "candidates": {
+        "c0": "3",
+        "c1": "2",
+        "c2": "1",
+        "c3": "0"
+      },
+      "target_probabilities": {
+        "c0": 0.0,
+        "c1": 0.0,
+        "c2": 1.0,
+        "c3": 0.0
+      },
+      "predictions": {
+        "SFT": {
+          "selected_answer": "c2",
+          "candidate_probabilities": {
+            "c0": 0.017053520306944847,
+            "c1": 0.16978329420089722,
+            "c2": 0.7786754965782166,
+            "c3": 0.03448771312832832
+          },
+          "accuracy": 1.0,
+          "confidence": 0.7786754965782166
+        },
+        "CORA": {
+          "selected_answer": "c2",
+          "candidate_probabilities": {
+            "c0": 0.003694782964885235,
+            "c1": 0.12379729002714157,
+            "c2": 0.8649364709854126,
+            "c3": 0.007571476511657238
+          },
+          "accuracy": 1.0,
+          "confidence": 0.8649364709854126
+        }
+      },
+      "media": [
+        {
+          "paper_file": "figures/case_assets/image_correct.jpg",
+          "source_sha256": "a27c2d0c85eeeaa756626f6cf4630b3ded1b42eedc0fc5aa2e6bf00dd41099a0",
+          "timestamp_seconds": null
+        }
+      ],
+      "preview": "image-counting.jpg"
+    },
+    {
+      "id": "video_gallery_6",
+      "paper_case_id": "V6",
+      "record_id": "9020076077",
+      "modality": "video",
+      "evaluation_split": "main3124",
+      "source_dataset": "OneThinker-NeXT-QA/0_30_s_nextqa",
+      "upstream_source_split": null,
+      "upstream_terms": "See upstream dataset terms",
+      "question_id": "mc",
+      "context": "",
+      "question": "Where is this happening?",
+      "candidates": {
+        "A": "tourist lift.",
+        "B": "park.",
+        "C": "forest.",
+        "D": "bowling alley.",
+        "E": "stage."
+      },
+      "target_probabilities": {
+        "A": 1.0,
+        "B": 0.0,
+        "C": 0.0,
+        "D": 0.0,
+        "E": 0.0
+      },
+      "predictions": {
+        "SFT": {
+          "selected_answer": "B",
+          "candidate_probabilities": {
+            "A": 0.423195481300354,
+            "B": 0.5029377341270447,
+            "C": 0.028781156986951828,
+            "D": 0.01813933067023754,
+            "E": 0.026946283876895905
+          },
+          "accuracy": 0.0,
+          "confidence": 0.5029377341270447
+        },
+        "CORA": {
+          "selected_answer": "A",
+          "candidate_probabilities": {
+            "A": 0.5595635771751404,
+            "B": 0.41899800300598145,
+            "C": 0.00853957049548626,
+            "D": 0.004899788647890091,
+            "E": 0.007999051362276077
+          },
+          "accuracy": 1.0,
+          "confidence": 0.5595635771751404
+        }
+      },
+      "media": [
+        {
+          "paper_file": "figures/case_assets/video_gallery_6_000000.jpg",
+          "source_sha256": "ce242a2211c1b033693595b18efe3b78dd027873bf61f4d2ca4096c69fcd94d3",
+          "timestamp_seconds": 0.0
+        },
+        {
+          "paper_file": "figures/case_assets/video_gallery_6_000007.jpg",
+          "source_sha256": "d44f5d123511ee7a2b4a7cd0eb851331aea3ee02f796c42216be750949eb6cf8",
+          "timestamp_seconds": 3.7037
+        },
+        {
+          "paper_file": "figures/case_assets/video_gallery_6_000013.jpg",
+          "source_sha256": "8c30f952c9684b86c5b6e017af526abd38834a5c14cf9f77dd499eed0c5c1ef6",
+          "timestamp_seconds": 6.8735333333333335
+        },
+        {
+          "paper_file": "figures/case_assets/video_gallery_6_000020.jpg",
+          "source_sha256": "b7a98a9369c015db5897e6e16e9ca620da9084e77d6e46797ae0708ca3da7121",
+          "timestamp_seconds": 10.577233333333334
+        },
+        {
+          "paper_file": "figures/case_assets/video_gallery_6_000026.jpg",
+          "source_sha256": "64c34dce41970f3a04f292d7418692cb20cc249ff75d0580cc03b35ea28d6810",
+          "timestamp_seconds": 13.747066666666667
+        },
+        {
+          "paper_file": "figures/case_assets/video_gallery_6_000033.jpg",
+          "source_sha256": "f534f3204fdd87fb35ce1745470eda1e0a6a71e087518267012fb09031417414",
+          "timestamp_seconds": 17.450766666666667
+        }
+      ],
+      "preview": "video-scene.gif"
+    },
+    {
+      "id": "image_disagreement",
+      "paper_case_id": "I7",
+      "record_id": "chartqa:train-00001-of-00003-7302bae5e425bbc7.parquet:4607",
+      "modality": "image",
+      "evaluation_split": "main3124",
+      "source_dataset": "HuggingFaceM4/ChartQA",
+      "upstream_source_split": "train",
+      "upstream_terms": "GPL-3.0",
+      "question_id": "decision",
+      "context": "",
+      "question": "How many people lived in the Columbus metropolitan area in 2019?",
+      "candidates": {
+        "c0": "2104194",
+        "c1": "2104195",
+        "c2": "2104192",
+        "c3": "2104193"
+      },
+      "target_probabilities": {
+        "c0": 1.0,
+        "c1": 0.0,
+        "c2": 0.0,
+        "c3": 0.0
+      },
+      "predictions": {
+        "SFT": {
+          "selected_answer": "c1",
+          "candidate_probabilities": {
+            "c0": 0.3196656405925751,
+            "c1": 0.6209671497344971,
+            "c2": 0.028491532430052757,
+            "c3": 0.030875708907842636
+          },
+          "accuracy": 0.0,
+          "confidence": 0.6209671497344971
+        },
+        "CORA": {
+          "selected_answer": "c1",
+          "candidate_probabilities": {
+            "c0": 0.36996981501579285,
+            "c1": 0.6129171848297119,
+            "c2": 0.008078841492533684,
+            "c3": 0.009034181013703346
+          },
+          "accuracy": 0.0,
+          "confidence": 0.6129171848297119
+        }
+      },
+      "media": [
+        {
+          "paper_file": "figures/case_assets/image_disagreement.png",
+          "source_sha256": "942e9723d01999515eb068d5d318653e6fc198350f01f3a43678b0f50792540e",
+          "timestamp_seconds": null
+        }
+      ],
+      "preview": "image-chart-error.png"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 import json
 import random
 from pathlib import Path
-from ..common.config import load_config, parser
+from ..common.config import load_config, parser, configure_determinism
 from ..common.data import check_data, build_partitions
 
 
@@ -60,6 +60,7 @@ def train(c, records, split, audit, resume=False):
     from .objective import update
     def point_best(output, step):
         point_to(output, "best", step)
+    configure_determinism(c)
     context = Context(c["device"])
     try:
         if context.world_size != c["world_size"]:

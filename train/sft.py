@@ -4,7 +4,7 @@ import math
 import random
 from pathlib import Path
 
-from .common.config import load_config, parser
+from .common.config import load_config, parser, configure_determinism
 from .common.data import check_data
 
 
@@ -212,6 +212,7 @@ def run(config, records, audit, resume=False):
     from .common.model import build_model, build_compiler, optimizer_groups
     from .common.distributed import Context
     from .common.checkpoint import initialize_run, write_json
+    configure_determinism(config)
     context = Context(config["device"])
     try:
         if context.world_size != config["world_size"]:
