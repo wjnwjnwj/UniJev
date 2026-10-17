@@ -283,5 +283,11 @@ requirements.txt       # Python dependencies
 ## Cite us
 
 ```bib
-
+@misc{wang2026unijev,
+  author = {Wang, Jianing and Jian, Youwen and Wang, Derong and Yu, Jinyang and and Si, Qingyi and Qin, Chuanyu and Xiao, Yanghua and Guo, Hongcheng},
+  title = {UniJev: Separating Accuracy from Calibration in Trimodal System One Decision Models},
+  year = {2026},
+  howpublished = {\url{https://github.com/wjnwjnwj/UniJev}},hu
+  note = {Research manuscript}
+}
 ```
