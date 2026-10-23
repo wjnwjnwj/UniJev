@@ -227,7 +227,7 @@ bash train/run_sft.sh \
   --max-frames 128 --min-pixels 3136 --max-pixels 65536 --max-length 32768 \
   --attn sdpa --grad-ckpt 1 --skip-nonfinite-update 1 \
   --cpu-workers 16 \
-  --save-every 100
+  --save-every 50
 
 # Stage 2: CORA on GPUs 0-3 from an SFT checkpoint (a run folder resolves to its latest/)
 bash train/run_cora.sh --model /abs/path/Qwen3.5-2B --gpus 0,1,2,3 \
