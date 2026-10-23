@@ -19,3 +19,4 @@ __pycache__/
 .env
 .DS_Store
 *output
+nohup.out
