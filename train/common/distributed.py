@@ -13,7 +13,9 @@ class Context:
             if device.startswith('cuda'):
                 torch.cuda.set_device(local_rank)
                 self.device = f'cuda:{local_rank}'
-            dist.init_process_group('nccl' if device.startswith('cuda') else 'gloo')
+            from datetime import timedelta
+            timeout = timedelta(minutes=int(os.environ.get('DIST_TIMEOUT_MINUTES', 60)))
+            dist.init_process_group('nccl' if device.startswith('cuda') else 'gloo', timeout=timeout)
         self.primary = self.rank == 0
 
     @property

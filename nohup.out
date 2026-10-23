@@ -1,0 +1,85 @@
+run dir: /pfs/siqingyi/code/token_credit/wjn/unijev/UniJev/test/output/Qwen3.5-2B_cora-2b_20261023_093348
+launched 6 replica(s): GPU(s) 0,1 x 3 per GPU, 4 CPU workers each
+progress: tail -f /pfs/siqingyi/code/token_credit/wjn/unijev/UniJev/test/output/Qwen3.5-2B_cora-2b_20261023_093348/logs/shard_*.log
+run dir: /pfs/siqingyi/code/token_credit/wjn/unijev/UniJev/test/output/Qwen3.5-9B_cora-9b_20261023_093608
+launched 2 replica(s): GPU(s) 2,3 x 1 per GPU, 4 CPU workers each
+progress: tail -f /pfs/siqingyi/code/token_credit/wjn/unijev/UniJev/test/output/Qwen3.5-9B_cora-9b_20261023_093608/logs/shard_*.log
+run: Qwen3.5-2B_cora-2b_20261023_093348
+model: /pfs/models/Qwen3.5-2B
+ckpt:  /pfs/siqingyi/code/token_credit/wjn/unijev/cora-weights-hf/cora-2b
+val:   /pfs/siqingyi/code/token_credit/wjn/unijev/JeV-Data/trimodal_val.jsonl
+coverage: {'records_expected': 2547, 'records_scored': 2547, 'records_failed': 0, 'questions_scored': 2547, 'unfinished_shards': []}
+
+                                                  n    acc%   conf%   ECE15     NLL   Brier    AURC
+overall                                        2547   81.43   84.08  0.0327  0.4896  0.2588  0.0540
+
+[by_modality]
+image                                          1146   87.52   87.74  0.0343  0.3321  0.1677  0.0166
+text                                            764   71.86   80.74  0.0888  0.7426  0.3998  0.1628
+video                                           637   81.95   81.51  0.0382  0.4696  0.2534  0.0471
+results: /pfs/siqingyi/code/token_credit/wjn/unijev/UniJev/test/output/Qwen3.5-2B_cora-2b_20261023_093348
+
+
+run: Qwen3.5-9B_cora-9b_20261023_093608
+model: /pfs/models/Qwen3.5-9B
+ckpt:  /pfs/siqingyi/code/token_credit/wjn/unijev/cora-weights-hf/cora-9b
+val:   /pfs/siqingyi/code/token_credit/wjn/unijev/JeV-Data/trimodal_val.jsonl
+coverage: {'records_expected': 2547, 'records_scored': 2547, 'records_failed': 0, 'questions_scored': 2547, 'unfinished_shards': []}
+
+                                                  n    acc%   conf%   ECE15     NLL   Brier    AURC
+overall                                        2547   83.63   81.66  0.0336  0.4604  0.2354  0.0385
+
+[by_modality]
+image                                          1146   87.70   83.25  0.0623  0.3585  0.1711  0.0159
+text                                            764   81.02   83.64  0.0479  0.5408  0.2876  0.0664
+video                                           637   79.43   76.41  0.0362  0.5474  0.2886  0.0613
+results: /pfs/siqingyi/code/token_credit/wjn/unijev/UniJev/test/output/Qwen3.5-9B_cora-9b_20261023_093608
+stage=sft gpus=4,5,6,7 (nproc=4)
+run dir: /pfs/siqingyi/code/token_credit/wjn/unijev/UniJev/output/sft_Qwen3.5-9B_trimodal_100k_train_20261023_111732
+log:     /pfs/siqingyi/code/token_credit/wjn/unijev/UniJev/output/sft_Qwen3.5-9B_trimodal_100k_train_20261023_111732/logs/train.log   (per-step JSON: /pfs/siqingyi/code/token_credit/wjn/unijev/UniJev/output/sft_Qwen3.5-9B_trimodal_100k_train_20261023_111732/logs/train.jsonl)
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:  20%|██        | 155/760 [00:00<00:00, 1456.50it/s]Loading weights:  40%|███▉      | 301/760 [00:00<00:00, 1060.71it/s]Loading weights:  54%|█████▍    | 413/760 [00:00<00:00, 932.15it/s] Loading weights:  68%|██████▊   | 515/760 [00:00<00:00, 939.81it/s]Loading weights:  83%|████████▎ | 634/760 [00:00<00:00, 1008.43it/s]Loading weights: 100%|██████████| 760/760 [00:00<00:00, 1057.40it/s]
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:  74%|███████▎  | 560/760 [00:00<00:00, 5595.98it/s]Loading weights: 100%|██████████| 760/760 [00:00<00:00, 5657.86it/s]
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:  76%|███████▋  | 581/760 [00:00<00:00, 5739.18it/s]Loading weights:  79%|███████▊  | 597/760 [00:00<00:00, 5922.88it/s]Loading weights: 100%|██████████| 760/760 [00:00<00:00, 5603.84it/s]
+Loading weights: 100%|██████████| 760/760 [00:00<00:00, 5668.81it/s]
+sft:   0%|          | 0/100000 [00:00<?, ?rec/s]sft:   0%|          | 116/100000 [02:49<40:30:17,  1.46s/rec, step=1, ep=0, loss=1.5181, acc=0.302, tok/s=1660, lr=5.00e-05]sft:   0%|          | 116/100000 [03:00<40:30:17,  1.46s/rec, step=1, ep=0, loss=1.5181, acc=0.302, tok/s=1660, lr=5.00e-05]sft:   0%|          | 233/100000 [05:29<39:08:28,  1.41s/rec, step=2, ep=0, loss=1.4082, acc=0.500, tok/s=1736, lr=5.00e-05]sft:   0%|          | 233/100000 [05:41<39:08:28,  1.41s/rec, step=2, ep=0, loss=1.4082, acc=0.500, tok/s=1736, lr=5.00e-05]sft:   0%|          | 350/100000 [08:26<40:06:26,  1.45s/rec, step=3, ep=0, loss=1.6803, acc=0.489, tok/s=1634, lr=5.00e-05]sft:   0%|          | 350/100000 [08:42<40:06:26,  1.45s/rec, step=3, ep=0, loss=1.6803, acc=0.489, tok/s=1634, lr=5.00e-05]sft:   0%|          | 444/100000 [11:12<42:05:20,  1.52s/rec, step=4, ep=0, loss=1.4378, acc=0.485, tok/s=1684, lr=5.00e-05]sft:   0%|          | 444/100000 [11:23<42:05:20,  1.52s/rec, step=4, ep=0, loss=1.4378, acc=0.485, tok/s=1684, lr=5.00e-05]sft:   1%|          | 548/100000 [13:57<42:22:11,  1.53s/rec, step=5, ep=0, loss=1.4939, acc=0.482, tok/s=1698, lr=5.00e-05]sft:   1%|          | 548/100000 [14:13<42:22:11,  1.53s/rec, step=5, ep=0, loss=1.4939, acc=0.482, tok/s=1698, lr=5.00e-05]sft:   1%|          | 660/100000 [16:55<42:39:29,  1.55s/rec, step=6, ep=0, loss=1.3242, acc=0.538, tok/s=1486, lr=5.00e-05]sft:   1%|          | 660/100000 [17:13<42:39:29,  1.55s/rec, step=6, ep=0, loss=1.3242, acc=0.538, tok/s=1486, lr=5.00e-05]sft:   1%|          | 797/100000 [19:55<41:19:24,  1.50s/rec, step=7, ep=0, loss=1.2059, acc=0.622, tok/s=1582, lr=5.00e-05]sft:   1%|          | 797/100000 [20:14<41:19:24,  1.50s/rec, step=7, ep=0, loss=1.2059, acc=0.622, tok/s=1582, lr=5.00e-05]sft:   1%|          | 926/100000 [23:08<41:14:15,  1.50s/rec, step=8, ep=0, loss=1.0466, acc=0.674, tok/s=1416, lr=5.00e-05]sft:   1%|          | 926/100000 [23:24<41:14:15,  1.50s/rec, step=8, ep=0, loss=1.0466, acc=0.674, tok/s=1416, lr=5.00e-05]sft:   1%|          | 1035/100000 [25:49<41:07:25,  1.50s/rec, step=9, ep=0, loss=1.0978, acc=0.689, tok/s=1753, lr=5.00e-05]sft:   1%|          | 1035/100000 [26:05<41:07:25,  1.50s/rec, step=9, ep=0, loss=1.0978, acc=0.689, tok/s=1753, lr=5.00e-05]sft:   1%|          | 1138/100000 [28:54<41:59:59,  1.53s/rec, step=10, ep=0, loss=1.1603, acc=0.697, tok/s=1560, lr=5.00e-05]                                                                                                                              {"step": 10, "epoch": 0, "loss": 1.1602983616907663, "train_acc": 0.6972477064220184, "questions": 109, "records": 103, "tokens": 288096, "grad_norm": 6.586635589599609, "update_skipped": false, "lr": {"head": 0.0002, "lora": 5e-05, "merger": 1e-05}, "skipped_records": 0, "nonfinite_losses": 0, "step_seconds": 184.656, "data_wait_seconds_mean": 0.293, "tokens_per_second": 1560.2, "by_modality": {"text": {"questions": 39, "loss": 1.4424886734057696, "acc": 0.5641025641025641}, "image": {"questions": 42, "loss": 1.0080845618531817, "acc": 0.7857142857142857}, "video": {"questions": 28, "loss": 0.9955682701298169, "acc": 0.75}}, "elapsed_seconds": 1765.5}
+sft:   1%|          | 1138/100000 [28:54<41:59:59,  1.53s/rec, step=10, ep=0, loss=1.1603, acc=0.697, tok/s=1560, lr=5.00e-05]sft:   1%|          | 1138/100000 [29:05<41:59:59,  1.53s/rec, step=10, ep=0, loss=1.1603, acc=0.697, tok/s=1560, lr=5.00e-05]sft:   1%|▏         | 1266/100000 [32:12<42:00:24,  1.53s/rec, step=11, ep=0, loss=1.0320, acc=0.657, tok/s=1429, lr=5.00e-05]sft:   1%|▏         | 1266/100000 [32:26<42:00:24,  1.53s/rec, step=11, ep=0, loss=1.0320, acc=0.657, tok/s=1429, lr=5.00e-05]sft:   1%|▏         | 1366/100000 [34:54<42:12:20,  1.54s/rec, step=12, ep=0, loss=1.0689, acc=0.598, tok/s=1715, lr=5.00e-05]sft:   1%|▏         | 1366/100000 [35:06<42:12:20,  1.54s/rec, step=12, ep=0, loss=1.0689, acc=0.598, tok/s=1715, lr=5.00e-05]sft:   1%|▏         | 1494/100000 [37:57<41:47:59,  1.53s/rec, step=13, ep=0, loss=0.9881, acc=0.691, tok/s=1532, lr=5.00e-05]sft:   1%|▏         | 1494/100000 [38:07<41:47:59,  1.53s/rec, step=13, ep=0, loss=0.9881, acc=0.691, tok/s=1532, lr=5.00e-05]sft:   2%|▏         | 1642/100000 [41:03<40:49:42,  1.49s/rec, step=14, ep=0, loss=0.9909, acc=0.712, tok/s=1554, lr=5.00e-05]sft:   2%|▏         | 1642/100000 [41:17<40:49:42,  1.49s/rec, step=14, ep=0, loss=0.9909, acc=0.712, tok/s=1554, lr=5.00e-05]W1023 12:02:36.831000 1164125 site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 1164421 closing signal SIGTERM
+W1023 12:02:36.835000 1164125 site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 1164422 closing signal SIGTERM
+W1023 12:02:36.839000 1164125 site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 1164423 closing signal SIGTERM
+E1023 12:02:36.847000 1164125 site-packages/torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: -9) local_rank: 0 (pid: 1164420) of binary: /pfs/siqingyi/code/token_credit/wjn/unijev/../valen-env/bin/python
+Traceback (most recent call last):
+  File "/pfs/siqingyi/code/token_credit/wjn/valen-env/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/pfs/siqingyi/code/token_credit/wjn/valen-env/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/pfs/siqingyi/code/token_credit/wjn/valen-env/lib/python3.10/site-packages/torch/distributed/run.py", line 922, in <module>
+    main()
+  File "/pfs/siqingyi/code/token_credit/wjn/valen-env/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+  File "/pfs/siqingyi/code/token_credit/wjn/valen-env/lib/python3.10/site-packages/torch/distributed/run.py", line 918, in main
+    run(args)
+  File "/pfs/siqingyi/code/token_credit/wjn/valen-env/lib/python3.10/site-packages/torch/distributed/run.py", line 909, in run
+    elastic_launch(
+  File "/pfs/siqingyi/code/token_credit/wjn/valen-env/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/pfs/siqingyi/code/token_credit/wjn/valen-env/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+========================================================
+train.sft FAILED
+--------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+--------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-10-23_12:02:36
+  host      : nb-005918460ae8204446-6fbdf89fd5-dzb82
+  rank      : 0 (local_rank: 0)
+  exitcode  : -9 (pid: 1164420)
+  error_file: <N/A>
+  traceback : Signal 9 (SIGKILL) received by PID 1164420
+========================================================

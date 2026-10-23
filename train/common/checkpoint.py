@@ -21,25 +21,6 @@ def source_hashes():
     return {str(p.relative_to(ROOT)): sha256(p) for p in sorted(ROOT.rglob("*.py"))}
 
 
-def initialize_run(config, context, resume, audit):
-    output = Path(config["output"])
-    manifest = {"config": config, "data_audit": audit, "source_sha256": source_hashes()}
-    if config.get("init_checkpoint"):
-        manifest["init_sha256"] = sha256(Path(config["init_checkpoint"]) / "checkpoint.pt")
-    def initialize():
-        if resume:
-            if json.loads((output / "run_manifest.json").read_text()) != manifest:
-                raise ValueError("Resume configuration, inputs, or source changed")
-            if (output / "finished.json").exists():
-                raise ValueError("Training already completed")
-        else:
-            output.mkdir(parents=True, exist_ok=False)
-            (output / "logs").mkdir()
-            write_json(output / "run_manifest.json", manifest)
-    context.on_primary(initialize)
-    return output
-
-
 def point_to(output, name, step):
     target = Path(output) / name
     if target.exists() and not target.is_symlink():

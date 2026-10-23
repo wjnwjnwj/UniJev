@@ -146,12 +146,12 @@ These selected cases illustrate model behavior. The [aggregate results](#results
 
 Model weights: **[UniJev on Hugging Face](https://huggingface.co/wjnwjnwj/UniJev)**.
 
-| Backbone | Modalities | SFT config | CORA config |
-| --- | --- | --- | --- |
-| Qwen3.5-2B | Text, image, video | [sft_2b.json](train/configs/sft_2b.json) | [cora_2b.json](train/configs/cora_2b.json) |
-| Qwen3.5-9B | Text, image, video | [sft_9b.json](train/configs/sft_9b.json) | [cora_9b.json](train/configs/cora_9b.json) |
+| Backbone | Modalities |
+| --- | --- |
+| Qwen3.5-2B | Text, image, video |
+| Qwen3.5-9B | Text, image, video |
 
-Training uses a local Qwen3.5 base model directory containing its weights, tokenizer, and processor. Set `MODEL_PATH` to the matching 2B or 9B directory. Base models and trained checkpoints are stored separately from this code repository.
+Training is not tied to these sizes: `--model` takes any Qwen-VL-style base model directory (Qwen2-VL, Qwen2.5-VL, Qwen3-VL, Qwen3.5), and the decision head is sized from that model's own `config.json`. Base models and trained checkpoints are stored separately from this code repository.
 
 ## Quick Start
 
@@ -170,70 +170,76 @@ python -m pip install -r requirements.txt
 
 ### Run the examples
 
-Try the complete SFT → CORA workflow on a single GPU:
+Check the bundled examples (CPU only, no model weights or GPU needed):
 
 ```bash
-export MODEL_PATH=/absolute/path/to/Qwen3.5-2B
-CUDA_VISIBLE_DEVICES=0 bash train/run_sft_2b.sh --smoke
-CUDA_VISIBLE_DEVICES=0 bash train/run_cora_2b.sh --smoke
+bash train/run_sft.sh --model /abs/path/Qwen3.5-2B --data data/examples.jsonl --check-data
 ```
 
-Each stage runs one training update on the bundled examples. CORA automatically loads the checkpoint from the preceding SFT step. For 9B, change the model path and use `run_sft_9b.sh` and `run_cora_9b.sh`.
-
-To check the example data without loading a model or using a GPU:
+Short SFT → CORA run on the bundled examples on one GPU:
 
 ```bash
-bash train/run_cora_2b.sh --smoke --check-data
+bash train/run_sft.sh  --model /abs/path/Qwen3.5-2B --data data/examples.jsonl --gpus 0 \
+    --max-steps 2 --save-every 1 --batch-size 4
+bash train/run_cora.sh --model /abs/path/Qwen3.5-2B --data data/examples.jsonl --gpus 0 \
+    --init-ckpt output/<sft run folder> --max-steps 1 --group-questions 24 --min-bin-count 1
 ```
 
 ## Training
 
-Both model sizes follow the same two stages:
+Training has two stages, each launched by its own script:
 
-1. **Soft-label SFT** trains the candidate distribution on labeled text, image, and video examples.
-2. **CORA** samples questions across modalities, groups predictions by confidence, and trains each confidence score toward its group's current accuracy.
+1. **Soft-label SFT** (`train/run_sft.sh`) trains the candidate distribution on labeled text, image and video examples.
+2. **CORA** (`train/run_cora.sh`) samples questions across modalities, groups predictions into 15 equal-width confidence bins (the same bins as `test/eval.py`), and trains each confidence toward its bin's current accuracy.
 
-Set the paths to your full training JSONL file and media directory:
-
-```bash
-export TRAIN_DATA=/absolute/path/to/trimodal_full_train.jsonl
-export MEDIA_ROOT=/absolute/path/to/media/root
-```
-
-### Qwen3.5-2B
+No validation runs during or after training; evaluate saved checkpoints with `test/run_eval.sh`.
 
 ```bash
-export MODEL_PATH=/absolute/path/to/Qwen3.5-2B
+# Stage 1: SFT on GPUs 0-7, checkpoint every 50 updates
+bash train/run_sft.sh \
+  --model /pfs/siqingyi/code/token_credit/wjn/unijev/models/Qwen3.5-2B \
+  --gpus 0,1,2,3,4,5,6,7 \
+  --epochs 1 \
+  --tokens-per-step 1048576 \
+  --grad-reduce rank_mean \
+  --lora-rank 32 --lora-alpha 64 --projection-dim 256 \
+  --head-lr 2e-4 --lora-lr 5e-5 --merger-lr 1e-5 \
+  --weight-decay 0.01 --grad-clip 1.0 \
+  --lr-schedule cosine --warmup-steps 40 --min-lr-ratio 0.1 \
+  --max-steps 1000 \
+  --soft-label-prob 0.9 \
+  --max-frames 128 --min-pixels 3136 --max-pixels 65536 --max-length 32768 \
+  --attn sdpa --grad-ckpt 0 --skip-nonfinite-update 1 \
+  --cpu-workers 16 \
+  --save-every 50 
 
-# Stage 1: soft-label SFT on 8 GPUs
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 bash train/run_sft_2b.sh
+bash train/run_sft.sh \
+  --model /pfs/siqingyi/code/token_credit/wjn/unijev/models/Qwen3.5-9B \
+  --gpus 0,1,2,3,4,5,6,7 \
+  --epochs 1 \
+  --tokens-per-step 524288 \
+  --grad-reduce question_mean \
+  --lora-rank 64 --lora-alpha 128 --projection-dim 256 \
+  --head-lr 2e-4 --lora-lr 5e-5 --merger-lr 1e-5 \
+  --weight-decay 0.01 --grad-clip 1.0 \
+  --lr-schedule cosine --warmup-steps 80 --min-lr-ratio 0.1 \
+  --soft-label-prob 0.9 \
+  --max-frames 128 --min-pixels 3136 --max-pixels 65536 --max-length 32768 \
+  --attn sdpa --grad-ckpt 1 --skip-nonfinite-update 1 \
+  --cpu-workers 16 \
+  --save-every 100
 
-# Stage 2: CORA on 4 GPUs
-CUDA_VISIBLE_DEVICES=0,1,2,3 bash train/run_cora_2b.sh
+# Stage 2: CORA on GPUs 0-3 from an SFT checkpoint (a run folder resolves to its latest/)
+bash train/run_cora.sh --model /abs/path/Qwen3.5-2B --gpus 0,1,2,3 \
+    --init-ckpt output/sft_Qwen3.5-2B_trimodal_100k_train_<timestamp>/step-01150 \
+    --data /abs/path/trimodal_100k_train.jsonl --max-steps 100 --save-every 10
 ```
 
-### Qwen3.5-9B
-
-```bash
-export MODEL_PATH=/absolute/path/to/Qwen3.5-9B
-
-# Stage 1: soft-label SFT on 4 GPUs
-CUDA_VISIBLE_DEVICES=0,1,2,3 bash train/run_sft_9b.sh
-
-# Stage 2: CORA on 4 GPUs
-CUDA_VISIBLE_DEVICES=0,1,2,3 bash train/run_cora_9b.sh
-```
-
-The launch scripts select the corresponding configuration and SFT checkpoint automatically. Full settings are in [`train/configs/`](train/configs). For 9B training, we recommend GPUs with 80 GB of memory and sufficient host memory for SFT activation offload.
-
-To start CORA from an existing SFT checkpoint, set `SFT_CHECKPOINT`:
-
-```bash
-SFT_CHECKPOINT=/absolute/path/to/sft/checkpoint-directory \
-  CUDA_VISIBLE_DEVICES=0,1,2,3 bash train/run_cora_2b.sh
-```
-
-Outputs are saved under `outputs/` by default. Use `OUTPUT` to choose another directory, or append `--resume` to continue an interrupted run with the same configuration. Explicit path settings also apply to smoke runs; unset them to return to the bundled examples.
+- Batch size: SFT `--batch-size N` = questions per update summed over all GPUs (0 = fixed token budget `--tokens-per-step`); CORA `--group-questions N` = questions binned and updated together.
+- `--init-ckpt` is optional for SFT (continue from a LoRA/head checkpoint) and required for CORA.
+- All settings are command-line flags with defaults; `bash train/run_sft.sh --help` lists them.
+- Each run writes `output/<stage>_<model>_<data>[_<name>]_<yyyymmdd_hhmmss>/` with `run_config.json`, `logs/` (`train.log`, per-update `train.jsonl`, CORA `bins.jsonl`, skipped records) and `step-XXXXX/` checkpoints every `--save-every` updates.
+- `--resume <run folder>` continues an interrupted run with its original settings on the same number of GPUs.
 
 ## Data
 
@@ -272,11 +278,13 @@ data/                  # Example records and media
 docs/cases/            # README gallery, saved predictions, and preview assets
 docs/results/          # Paper metrics, calibration comparison, and figure source
 train/
-  common/              # Shared model and data utilities
+  common/              # Shared model, data and launch utilities
   sft.py               # Soft-label SFT
   cora/                # CORA training
-  configs/             # 2B and 9B training recipes
-  run_*.sh             # Launch scripts for both stages
+  run_sft.sh           # Stage 1 launch script
+  run_cora.sh          # Stage 2 launch script
+test/
+  eval.py, run_eval.sh # Validation-set evaluation
 requirements.txt       # Python dependencies
 ```
 
@@ -284,10 +292,14 @@ requirements.txt       # Python dependencies
 
 ```bib
 @misc{wang2026unijev,
-  author = {Wang, Jianing and Jian, Youwen and Wang, Derong and Yu, Jinyang and and Si, Qingyi and Qin, Chuanyu and Xiao, Yanghua and Guo, Hongcheng},
-  title = {UniJev: Separating Accuracy from Calibration in Trimodal System One Decision Models},
-  year = {2026},
-  howpublished = {\url{https://github.com/wjnwjnwj/UniJev}},hu
-  note = {Research manuscript}
+  title         = {{UniJev}: Separating Accuracy from Calibration in Trimodal System One Decision Models},
+  author        = {Wang, Jianing and Jian, Youwen and Wang, Derong and Yu, Jinyang and Si, Qingyi and Qin, Chuanyu and Xiao, Yanghua and Guo, Hongcheng},
+  year          = {2026},
+  eprint        = {2610.25784},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  doi           = {10.48550/arXiv.2610.25784},
+  url           = {https://arxiv.org/abs/2610.25784},
+  note          = {21 pages, 8 figures}
 }
 ```

@@ -47,18 +47,23 @@ class DecisionModel(nn.Module):
 
 
 def build_model(config):
-    from transformers import Qwen3_5ForConditionalGeneration
+    from transformers import AutoModelForImageTextToText
     dtype = {"bf16": torch.bfloat16, "fp32": torch.float32}[config.get("dtype", "bf16")]
-    # Load the exact published architecture before extracting its backbone.
-    # Loading the bare Qwen3_5Model can trigger a language-prefix remapping in
-    # Transformers 5.4 and silently initialize the language tower from scratch.
-    container, loading_info = Qwen3_5ForConditionalGeneration.from_pretrained(
+    # Load the full published image-text-to-text architecture (Qwen3.5 resolves to
+    # Qwen3_5ForConditionalGeneration) before extracting its backbone. Loading the
+    # bare inner model can trigger a language-prefix remapping in Transformers 5.4
+    # and silently initialize the language tower from scratch.
+    container, loading_info = AutoModelForImageTextToText.from_pretrained(
         config["model_path"], dtype=dtype, attn_implementation=config.get("attn_implementation", "sdpa"),
         local_files_only=True, output_loading_info=True)
     if any(loading_info.get(key) for key in ("missing_keys", "unexpected_keys", "mismatched_keys", "error_msgs")):
         raise ValueError(f"Incomplete pretrained model load: {loading_info}")
     backbone = container.model
     del container  # Never execute or retain the generation/vocabulary output layer.
+    if not all(hasattr(backbone, name) for name in ("language_model", "visual")) \
+            or not hasattr(backbone.visual, "merger") or not hasattr(backbone.config, "text_config"):
+        raise ValueError(f"{type(backbone).__name__}: expected a Qwen-VL-style backbone with "
+                         "language_model, visual.merger and config.text_config")
     backbone.requires_grad_(False)
     from peft import LoraConfig, get_peft_model
     targets = [name for name, module in backbone.language_model.named_modules()

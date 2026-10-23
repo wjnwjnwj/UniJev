@@ -93,6 +93,7 @@ class Compiler:
         self.media_root = Path(media_root)
         self.max_length = max_length
         self.media_kwargs = media_kwargs or {}
+        self.verify_hashes = True  # training audits assets once at startup and turns this off
 
     def _messages(self, state):
         messages = [{"role": "user", "content": state}] if isinstance(state, str) else deepcopy(state["messages"])
@@ -186,7 +187,8 @@ class Compiler:
         base, media = self._encode_state(state)
         # Hash only assets the record explicitly pins; hashing every video at
         # scale would read terabytes for no verification value.
-        expected = {str((self.media_root / a["path"]).resolve()): a["sha256"] for a in record.get("assets", [])}
+        expected = {str((self.media_root / a["path"]).resolve()): a["sha256"]
+                    for a in record.get("assets", [])} if self.verify_hashes else {}
         for entry in media:
             path = entry.get("path")
             if path in expected:
